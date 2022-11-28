@@ -1,4 +1,5 @@
 const express = require("express");
+const { protect } = require("../config");
 const {
   createUser,
   updateUser,
@@ -7,9 +8,9 @@ const {
 } = require("../modules/user");
 const router = express.Router();
 
-router.post("/create", createUser);
-router.put("/update/:id", updateUser);
-router.get("/get", getUsers);
-router.delete("/remove/:id", deleteUser);
+router.post("/create", protect, createUser);
+router.put("/update/:id", protect, updateUser);
+router.get("/get", protect,getUsers);
+router.delete("/remove/:id", protect,deleteUser);
 
 module.exports = router;

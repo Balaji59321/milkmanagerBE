@@ -1,4 +1,5 @@
 const express = require("express");
+const { protect } = require("../config");
 const {
   totalCustomer,
   todayCustomer,
@@ -9,11 +10,11 @@ const {
 } = require("../modules/dashboard");
 const router = express.Router();
 
-router.get("/getCustomer", totalCustomer);
-router.get("/getTodayCustomer", todayCustomer);
-router.get("/buyPrice", buyPrice);
-router.get("/sellPrice", sellPrice);
-router.get("/cow", cowQuantity);
-router.get("/buffalo", buffaloQuantity);
+router.get("/getCustomer", protect,totalCustomer);
+router.get("/getTodayCustomer", protect,todayCustomer);
+router.get("/buyPrice", protect,buyPrice);
+router.get("/sellPrice", protect,sellPrice);
+router.get("/cow", protect,cowQuantity);
+router.get("/buffalo", protect,buffaloQuantity);
 
 module.exports = router;

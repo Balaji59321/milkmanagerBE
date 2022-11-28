@@ -3,7 +3,7 @@ const mongo = require("./../db");
 
 module.exports.getAllRecords = async (req, res, next) => {
   try {
-    let resp = await mongo.selectedDB.collection("record").find().toArray();
+    let resp = await mongo.selectedDB.collection("record").find({created_by : req.user[0]._id}).toArray();
     resp.length > 0
       ? res.status(200).send(resp)
       : res.status(404).send({ code: 404, message: "No Record Found" });
@@ -16,7 +16,8 @@ module.exports.getAllRecords = async (req, res, next) => {
 
 module.exports.createRecord = async (req, res, next) => {
   try {
-    let resp = await mongo.selectedDB.collection("record").insertOne(req.body);
+    let body = {...req.body,created_by: req.user[0]._id}
+    let resp = await mongo.selectedDB.collection("record").insertOne(body);
     res.status(201).send(resp);
     next();
   } catch (err) {

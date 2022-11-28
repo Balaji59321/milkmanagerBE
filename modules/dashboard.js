@@ -2,7 +2,8 @@ const mongo = require("./../db");
 
 module.exports.totalCustomer = async (req, res, next) => {
   try {
-    const resp = await mongo.selectedDB.collection("customer").find().toArray();
+    console.log(req.user);
+    const resp = await mongo.selectedDB.collection("customer").find({created_by : req.user[0]._id}).toArray();
     res.status(200).send({ count: resp.length });
   } catch (err) {
     console.log(err);
@@ -11,7 +12,7 @@ module.exports.totalCustomer = async (req, res, next) => {
 
 module.exports.todayCustomer = async (req, res, next) => {
   try {
-    const resp = await mongo.selectedDB.collection("record").find().toArray();
+    const resp = await mongo.selectedDB.collection("record").find({created_by : req.user[0]._id}).toArray();
     let ans = resp.filter((ele) => {
       return (
         new Date(ele.date).toLocaleDateString() ===
@@ -27,7 +28,7 @@ module.exports.todayCustomer = async (req, res, next) => {
 
 module.exports.buyPrice = async (req, res, next) => {
   try {
-    const resp = await mongo.selectedDB.collection("record").find().toArray();
+    const resp = await mongo.selectedDB.collection("record").find({created_by : req.user[0]._id}).toArray();
     let ans = resp.filter((ele) => {
       return (
         new Date(ele.date).toLocaleDateString() ===
@@ -43,7 +44,7 @@ module.exports.buyPrice = async (req, res, next) => {
 
 module.exports.sellPrice = async (req, res, next) => {
   try {
-    const resp = await mongo.selectedDB.collection("record").find().toArray();
+    const resp = await mongo.selectedDB.collection("record").find({created_by : req.user[0]._id}).toArray();
     let ans = resp.filter((ele) => {
       return (
         new Date(ele.date).toLocaleDateString() ===
@@ -59,7 +60,7 @@ module.exports.sellPrice = async (req, res, next) => {
 
 module.exports.cowQuantity = async (req, res, next) => {
   try {
-    const resp = await mongo.selectedDB.collection("record").find().toArray();
+    const resp = await mongo.selectedDB.collection("record").find({created_by : req.user[0]._id}).toArray();
     let ans = resp.filter((ele) => {
       return (
         new Date(ele.date).toLocaleDateString() ===
@@ -75,7 +76,7 @@ module.exports.cowQuantity = async (req, res, next) => {
 
 module.exports.buffaloQuantity = async (req, res, next) => {
   try {
-    const resp = await mongo.selectedDB.collection("record").find().toArray();
+    const resp = await mongo.selectedDB.collection("record").find({created_by : req.user[0]._id}).toArray();
     let ans = resp.filter((ele) => {
       return (
         new Date(ele.date).toLocaleDateString() ===

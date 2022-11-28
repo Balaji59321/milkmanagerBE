@@ -7,6 +7,7 @@ const db = require("./db");
 const record = require("./router/addRecord");
 const user = require("./router/user");
 const dashboard = require("./router/dashboard");
+const userLogin = require("./router/userLogin");
 
 dotenv.config();
 db.connect();
@@ -22,6 +23,7 @@ app.use("/", (req, res, next) => {
 app.use("/record", record);
 app.use("/user", user);
 app.use("/dashboard", dashboard);
+app.use("/user", userLogin);
 
 app.listen(process.env.PORT || 3010, () => {
   console.log("Server Running on a port and listening" + process.env.PORT);

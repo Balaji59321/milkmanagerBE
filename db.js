@@ -6,6 +6,7 @@ module.exports = {
     try {
       const resp = await MongoClient.connect(process.env.DB);
       this.selectedDB = resp.db("milk");
+      console.log("Db connected successfully")
     } catch (err) {
       console.log(err);
     }
